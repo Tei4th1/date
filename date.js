@@ -2,8 +2,9 @@ const output = document.getElementById("output")
 const fullBtn = document.getElementById("full")
 const dateBtn = document.getElementById("date")
 const timeBtn = document.getElementById("time")
-let mode = 'full'
+
 const now = new Date()
+let mode = 'full'
 
 function bindMode(name) {
     return function() {
@@ -14,17 +15,20 @@ function bindMode(name) {
 fullBtn.onclick = bindMode('full')
 
 dateBtn.onclick = bindMode('date')
+
 timeBtn.onclick = bindMode('time')
+
+setInterval(update, 1000)
+update()
+
 
 function update() {
     output.textContent = format(mode)
 }
 
-update()
-
-setInterval(update, 1000)
-
 function format(formatMode) {
+    const now = new Date()
+
     switch(formatMode) {
         case 'time':
              return now.toLocaleTimeString()
@@ -32,6 +36,7 @@ function format(formatMode) {
              return now.toLocaleDateString()
         case 'full':
              return now.toLocaleDateString() + ' ' +  now.toLocaleTimeString()
-        default: return now.toLocaleDateString     
+        default:
+             return now.toLocaleDateString     
     }
 }
